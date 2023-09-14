@@ -41,7 +41,7 @@ class FileStorage():
             with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
                 for keys, v in data.items():
-                    temp = keys.split(.)
+                    temp = keys.split('.')
                     new = classes[temp[0]](**v)
                     self.new(new)
         except FileNotFoundError:
