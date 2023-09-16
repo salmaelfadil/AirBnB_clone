@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""File_storage class"""
 import json
 import datetime
 from models.base_model import BaseModel
@@ -11,12 +12,12 @@ from models.review import Review
 
 
 class FileStorage():
-
+    """Represents file storage class"""
     __file_path = "file.json"
     __objects = {}
 
     def all(self):
-        """returns dictrionary """
+        """Returns all the objects"""
         return FileStorage.__objects
 
     def new(self, obj):
@@ -25,7 +26,7 @@ class FileStorage():
             obj.__class__.__name__, obj.id)] = obj
 
     def save(self):
-        """save to json file"""
+        """Save to json file"""
         serialized_objects = {}
         for key, obj in FileStorage.__objects.items():
             serialized_objects[key] = obj.to_dict()
