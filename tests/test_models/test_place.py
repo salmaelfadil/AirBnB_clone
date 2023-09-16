@@ -12,6 +12,16 @@ class Test_Place(unittest.TestCase):
     """
     test Place model
     """
+    def test_str_repr(self):
+        """
+        testing string representation
+        """
+        place = Place()
+        cls = place.__class__.__name__
+        id_ = place.id
+        str_format = "[{}] ({}) {}".format(cls, id_, place.__dict__)
+        self.assertEqual(place.__str__(), str_format)
+
     def test_place_class(self):
         """
         test place class
