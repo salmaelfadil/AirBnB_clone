@@ -111,56 +111,6 @@ class HBNBCommand(cmd.Cmd):
                 result.append(value.__str__())
         print(result)
 
-    def default(self, line):
-        """
-        Handling the default behaviour
-        """
-        full_match = re.search(r'[A-Z][a-z]+\.\w+\((.*?)\)', line)
-        met_match = re.search(r'(?<=\.)\w+\((.*?)\)', line)
-        met_dict = {
-                "all": self.do_all,
-                "show": self.do_show,
-                "count": self.do_count,
-                "update": self.do_update,
-                "destroy": self.do_destroy,
-                "create": self.do_create
-                }
-        if full_match and met_match:
-            cls = re.search(r'^[A-Z][a-z]+', full_match.group(0))
-            met = re.search(r'^\w+(?=\()', met_match.group(0))
-            if not met or not cls:
-                print("** Unknown syntax:", line)
-            else:
-                cls = cls.group(0)
-                met = met.group(0)
-                if cls in self.classes and met in met_dict.keys():
-                    pattern = r'(?<=\()(.+?)(?=\))'
-                    arg_search = re.search(pattern, met_match.group(0))
-                    if arg_search:
-                        args = arg_search.group(0).split(",")
-                        args = " ".join([arg.strip("()\"' ") for arg in args])
-                        met_dict[met](cls + " " + args)
-                    else:
-                        met_dict[met](cls)
-                elif cls not in self.classes:
-                    print("** class doesn't exist **")
-                else:
-                    print("** Unknown syntax:", line)
-        else:
-            print(" *** Unknown syntax:", line)
-
-    def do_count(self, line):
-        """
-        retrieve the number of instances of a class
-        """
-        inst = storage.all()
-        arg = line.split()
-        count = 0
-        for instance in inst.values():
-            if instance.__class__.__name__ == arg[0]:
-                count += 1
-        print(count)
-
     def do_update(self, line):
         """Updates an instance based on the class name and id"""
         arg = line.split()
