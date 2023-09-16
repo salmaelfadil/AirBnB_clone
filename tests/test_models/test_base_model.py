@@ -28,6 +28,13 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(datetime, type(BaseModel().created_at))
         self.assertEqual(datetime, type(BaseModel().updated_at))
 
+    def test_str(self):
+        """test string output from BaseModel"""
+        base = BaseModel()
+        cls = type(base).__name__
+        str_format = "[{}] ({}) {}".format(cls, base.id, base.__dict__)
+        self.assertEqual(base.__str__(), str_format)
+
     def test_types(self):
         """
         test types
@@ -67,6 +74,20 @@ class TestBaseModel(unittest.TestCase):
         bm_5.save()
         dict_2 = bm_5.to_dict()
         self.assertNotEqual(dict_5["updated_at"], dict_2["updated_at"])
+
+    def test_to_dict(self):
+        """
+        test to_dict function from basemodel
+        """
+        base = BaseModel()
+        prev_time = base.updated_at
+        self.assertDictEqual(base.to_dict(),
+                             {'__class__': type(base).__name__,
+                              'updated_at': base.updated_at.isoformat(),
+                              'id': base.id,
+                              'created_at': base.created_at.isoformat()})
+        base.save()
+        self.assertNotEqual(prev_time, base.updated_at)
 
     def test_None_BaseModel(self):
         """
