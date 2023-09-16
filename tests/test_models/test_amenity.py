@@ -8,12 +8,15 @@ from models.amenity import Amenity
 
 
 class TestBaseModel(unittest.TestCase):
+    """unit test for amenity class"""
     def test_str(self):
+        """test str"""
         amenity = Amenity()
         self.assertEqual(amenity.name, "")
         self.assertTrue(issubclass(Amenity, BaseModel))
 
     def test_amenity(self):
+        """test instance of class"""
         amenity = Amenity()
         self.assertTrue(isinstance(amenity, Amenity))
 

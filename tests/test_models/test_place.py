@@ -40,6 +40,7 @@ class Test_Place(unittest.TestCase):
         self.assertTrue(issubclass(Place, BaseModel))
 
     def test_instance_place(self):
+        """test instance of place"""
         place = Place()
         self.assertTrue(isinstance(place, BaseModel))
 
