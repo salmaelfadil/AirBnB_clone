@@ -1,5 +1,10 @@
 #!/usr/bin/python3
-"""File_storage class"""
+"""
+File_storage class
+This module contains the FileStorage class
+which is responsible for
+storing and retrieving objects in JSON format.
+"""
 import json
 import datetime
 from models.base_model import BaseModel
@@ -21,7 +26,11 @@ class FileStorage():
         return FileStorage.__objects
 
     def new(self, obj):
-        """Set in __objects obj with key <obj_class_name>.id"""
+        """
+        Set in __objects obj with key <obj_class_name>.id
+        Args:
+            obj: The obj to be added to the storage
+        """
         FileStorage.__objects["{}.{}".format(
             obj.__class__.__name__, obj.id)] = obj
 
