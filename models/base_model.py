@@ -10,7 +10,7 @@ import models
 class BaseModel():
     """BaseModel class from which other classes will inheret"""
     def __init__(self, *args, **kwargs):
-        """ starting point"""
+        """starting point of the class"""
         self.id = str(uuid.uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
@@ -25,17 +25,17 @@ class BaseModel():
             models.storage.new(self)
 
     def __str__(self):
-        """string representation of base model """
+        """string representation of base model"""
         return "[{}] ({}) {}".format(
                 self.__class__.__name__, self.id, self.__dict__)
 
     def save(self):
-        """save basemodel """
+        """save basemodel method"""
         self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
-        """to dictionary function """
+        """save basemodel to dictionary function"""
         my_dict = self.__dict__.copy()
         my_dict["__class__"] = self.__class__.__name__
         my_dict["created_at"] = self.created_at.isoformat()
