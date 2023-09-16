@@ -60,10 +60,6 @@ class TestFileStorage(unittest.TestCase):
             os.remove("file.json")
         except Exception:
             pass
-        try:
-            os.rename("tmp", "file.json")
-        except Exception:
-            pass
 
     def test_inst(self):
         """
@@ -91,6 +87,12 @@ class TestFileStorage(unittest.TestCase):
         review = Review()
         place = Place()
         base = BaseModel()
+        models.storage.new(base)
+        models.storage.new(user)
+        models.storage.new(state)
+        models.storage.new(amenity)
+        models.storage.new(review)
+        models.storage.new(place)
         self.assertIn("City." + city.id, models.storage.all().keys())
         self.assertIn("State." + state.id, models.storage.all().keys())
         self.assertIn("Amenity." + amenity.id, models.storage.all().keys())
@@ -117,6 +119,12 @@ class TestFileStorage(unittest.TestCase):
         review = Review()
         place = Place()
         base = BaseModel()
+        models.storage.new(base)
+        models.storage.new(user)
+        models.storage.new(state)
+        models.storage.new(amenity)
+        models.storage.new(review)
+        models.storage.new(place)
         models.storage.save()
         with open("file.json", "r") as file:
             f_contents = file.read()
@@ -149,11 +157,34 @@ class TestFileStorage(unittest.TestCase):
 
     def test_reload(self):
         """test reload method"""
-        self.storage.new(self.model)
-        self.storage.save()
-        self.storage.reload()
+        city = City()
+        state = State()
+        amenity = Amenity()
+        user = User()
+        review = Review()
+        place = Place()
+        base = BaseModel()
+        models.storage.new(base)
+        models.storage.new(user)
+        models.storage.new(state)
+        models.storage.new(amenity)
+        models.storage.new(review)
+        models.storage.new(place)
+        models.storage.save()
+        models.storage.reload()
         objs = FileStorage._FileStorage__objects
-        self.assertIn("BaseModel." + self.model.id, objs)
+        self.assertIn("BaseModel." + base.id, objs)
+        self.assertIn("User." + user.id, objs)
+        self.assertIn("State." + state.id, objs)
+        self.assertIn("Place." + place.id, objs)
+        self.assertIn("City." + city.id, objs)
+        self.assertIn("Amenity." + amenity.id, objs)
+        self.assertIn("Review." + review.id, objs)
+
+        def test_reload_with_arg(self):
+            """tests reload method with argument"""
+            with self.assertRaises(TypeError):
+                models.storage.reload(None)
 
 
 if __name__ == "__main__":
