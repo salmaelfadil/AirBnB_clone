@@ -44,6 +44,16 @@ class TestCity(unittest.TestCase):
         city2 = City()
         self.assertNotEqual(city1.id, city2.id)
 
+    def test_str_repr(self):
+        """
+        Testing string representation
+        """
+        city = City()
+        cls = city.__class__.__name__
+        id_ = city.id
+        str_format = "[{}] ({}) {}".format(cls, id_, city.__dict__)
+        self.assertEqual(city.__str__(), str_format)
+
     def test_args_unused(self):
         """
         test unused args

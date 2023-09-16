@@ -20,6 +20,16 @@ class Test_user(unittest.TestCase):
         self.assertEqual(User.last_name, "")
         self.assertTrue(issubclass(User, BaseModel))
 
+    def test_str_repr(self):
+        """
+        testing str representation
+        """
+        user = User()
+        cls = user.__class__.__name__
+        id_ = user.id
+        str_format = "[{}] ({}) {}".format(cls, id_, user.__dict__)
+        self.assertEqual(user.__str__(), str_format)
+
     def test_instance(self):
         """
         test all the instance

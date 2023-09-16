@@ -27,6 +27,16 @@ class TestState(unittest.TestCase):
         self.assertIsInstance(state, State)
         self.assertIsInstance(state, BaseModel)
 
+    def test_str_repr(self):
+        """
+        Testing string representation
+        """
+        state = State()
+        cls = state.__class__.__name__
+        id_ = state.id
+        str_format = "[{}] ({}) {}".format(cls, id_, state.__dict__)
+        self.assertEqual(state.__str__(), str_format)
+
     def test_save(self):
         """
         testing the save and check updated_at attr
