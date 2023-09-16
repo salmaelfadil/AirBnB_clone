@@ -1,8 +1,19 @@
+#!/usr/bin/env python3
+"""
+Testing File_Storage module
+"""
 import unittest
 import json
 import os
 from datetime import datetime
 from models.base_model import BaseModel
+import models
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 from models.engine.file_storage import FileStorage
 from models import storage as models_storage
 
