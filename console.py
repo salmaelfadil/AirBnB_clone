@@ -146,16 +146,40 @@ class HBNBCommand(cmd.Cmd):
                 return
 
     def do_count(self, line):
-    """
-    Retrieve the number of instances of a class
-    """
-    count = 0
-    inst = storage.all()
-    arg = line.split()
-    for inst in inst.values():
-        if inst.__class__.__name__ == arg[0]:
-            count += 1
-    print(count)
+        """Retrieve the number of instances of a class"""
+        count = 0
+        inst = storage.all()
+        arg = line.split()
+        for inst in inst.values():
+            if inst.__class__.__name__ == arg[0]:
+                count += 1
+        print(count)
+
+    def default(self, line):
+        """Default function that handles all the method"""
+        found = re.search(r"\.", line)
+        if found is not None:
+            arg = [line[:found.span()[0]], line[found.span()[1]:]]
+            found = re.search(r"\((.*?)\)", arg[1])
+            if found is not None:
+                comm = [arg[1][:found.span()[0]], found.group()[1:-1]]
+                if comm[0] == "count":
+                    final = "{} {}".format(arg[0], comm[1])
+                    return self.do_count(final)
+                elif comm[0] == "all":
+                    final = "{} {}".format(arg[0], comm[1])
+                    return self.do_all(final)
+                elif comm[0] == "show":
+                    final = "{} {}".format(arg[0], comm[1])
+                    return self.do_show(final)
+                elif comm[0] == "destroy":
+                    final = "{} {}".format(arg[0], comm[1])
+                    return self.do_destroy(final)
+                elif comm[0] == "update":
+                    final = "{} {}".format(arg[0], comm[1])
+                    return self.do_update(final)
+        print("*** Unknown syntax: {}".format(line))
+        return False
 
 
 if __name__ == '__main__':
